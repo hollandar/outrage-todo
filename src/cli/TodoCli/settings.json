@@ -1,0 +1,12 @@
+{
+  "languages": [
+    "cstyle",
+    "razor"
+  ],
+  "customLanguages": [],
+  "expressions": [
+    "cs_notimplemented",
+    "razor_notimplemented"
+  ],
+  "customExpressions": []
+}

@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@using TodoApp.Data.Auth
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject IdentityRedirectManager RedirectManager
+
+@if (externalLogins.Length == 0)
+{
+    <section>
+        <p>
+            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                article
+                about setting up this ASP.NET application to support logging in via external services
+            </a>.
+        </p>
+    </section>
+}
+else
+{
+    <section>
+        <form class="form-horizontal" action="Account/PerformExternalLogin" method="post">
+            <div>
+                <AntiforgeryToken />
+                <input type="hidden" name="ReturnUrl" value="@ReturnUrl" />
+                <div class="actions">
+                    @foreach (var provider in externalLogins)
+                    {
+                        <button type="submit" class="primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                            @switch (provider.DisplayName)
+                            {
+                                case "GitHub":
+                                    {
+                                        <div class="stack center">
+                                            <div><i class="fab fa-github fa-2x"></i></div>
+                                            <div>@provider.DisplayName</div>
+                                        </div>
+                                    }
+                                    break;
+                                default:
+                                    {
+                                        <text>@provider.DisplayName</text>
+                                    }
+                                    break;
+                            }
+                        </button>
+                    }
+                </div>
+            </div>
+        </form>
+    </section>
+}
+
+@code {
+    private AuthenticationScheme[] externalLogins = [];
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        externalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToArray();
+    }
+
+}

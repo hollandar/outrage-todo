@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ConsoleApp1": {
+      "commandName": "Project",
+      "commandLineArgs": "c:\\cm\\webefinity\\webefinity-cubebuild -s settings.json"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+﻿@import 'style_library.scss';
+
+*:not(:defined) {
+    opacity: 0;
+}
+
+*:defined {
+    opacity: 1;
+}
