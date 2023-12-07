@@ -1,0 +1,22 @@
+﻿@page "/connect/logout"
+@using Microsoft.Extensions.Primitives
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject HttpContextAccessor HttpContextAccessor
+
+<section class="gutter">
+    <h1>Log out</h1>
+    <p class="lead text-left">Are you sure you want to sign out?</p>
+
+    <form asp-controller="Authorization" asp-action="Logout" method="post">
+        <AntiforgeryToken />
+        @* Flow the request parameters so they can be received by the LogoutPost action: *@
+        @foreach (var parameter in HttpContextAccessor.HttpContext.Request.HasFormContentType ?
+        (IEnumerable<KeyValuePair<string, StringValues>>)HttpContextAccessor.HttpContext.Request.Form : HttpContextAccessor.HttpContext.Request.Query)
+        {
+            <input type="hidden" name="@parameter.Key" value="@parameter.Value" />
+        }
+
+        <input class="button success" name="Confirm" type="submit" value="Yes" />
+    </form>
+</section>

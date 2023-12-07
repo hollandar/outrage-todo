@@ -1,0 +1,25 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Gatekeeper.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+
+<nav class="vertical">
+    <NavLink href="Account/Manage" Match="NavLinkMatch.All">Profile</NavLink>
+    <NavLink href="Account/Manage/Email">Email</NavLink>
+    <NavLink href="Account/Manage/ChangePassword">Password</NavLink>
+    @if (hasExternalLogins)
+    {
+        <NavLink href="Account/Manage/ExternalLogins">External logins</NavLink>
+    }
+    <NavLink href="Account/Manage/TwoFactorAuthentication">Two-factor authentication</NavLink>
+    <NavLink href="Account/Manage/PersonalData">Personal data</NavLink>
+</nav>
+
+@code {
+    private bool hasExternalLogins;
+
+    protected override async Task OnInitializedAsync()
+    {
+        hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+    }
+}

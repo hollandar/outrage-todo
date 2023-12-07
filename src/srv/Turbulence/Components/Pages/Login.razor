@@ -1,0 +1,17 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.Authentication
+@using System.Diagnostics
+@using Microsoft.AspNetCore.Authentication.OpenIdConnect
+@inject IHttpContextAccessor HttpContextAccessor
+
+<h3>Logging in..</h3>
+
+@code {
+    [Parameter, SupplyParameterFromQuery(Name = "redirectUri")] public string RedirectUri { get; set;} =  "/";
+    protected override async Task OnInitializedAsync()
+    {
+        Debug.Assert(HttpContextAccessor?.HttpContext is not null);
+        await base.OnInitializedAsync();
+        await HttpContextAccessor.HttpContext.ChallengeAsync(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties { RedirectUri = this.RedirectUri });
+    }
+}

@@ -1,0 +1,56 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    <div class="header">
+        <header>
+            <div class="toggle">
+                <ui-toggler toggle-event="toggle-nav-event"><i class="fas fa-bars fa-2xl"></i></ui-toggler>
+            </div>
+
+            <div class="brand">
+                GATEKEEPER
+            </div>
+
+            <nav class="menu">
+                <NavLink Match="NavLinkMatch.All" href="/">Home</NavLink>
+            </nav>
+
+            <div class="tools actions">
+                <AuthorizeView>
+                    <Authorized>
+                        <form action="Connect/Logout" method="post">
+                            <AntiforgeryToken />
+                            <input type="hidden" name="ReturnUrl" value="" />
+                            <button class="button ghost" type="submit">
+                                <span class="bi bi-arrow-bar-left-nav-menu" aria-hidden="true"></span> Logout
+                            </button>
+                        </form>
+                    </Authorized>
+                    <NotAuthorized>
+                        <a class="button ghost" href="/Account/Login">Login</a>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </header>
+    </div>
+
+    <div class="nav">
+        <ui-toggled toggle-event="toggle-nav-event">
+            <NavMenu />
+        </ui-toggled>
+    </div>
+
+    <section class="gutter">
+        @Body
+    </section>
+
+    <div class="footer">Footer</div>
+
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
