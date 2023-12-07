@@ -2,26 +2,45 @@
 @inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
+    <div class="header">
+        <header>
+            <div class="toggle">
+                <ui-toggler toggle-event="toggle-nav-event"><i class="fas fa-bars fa-2xl"></i></ui-toggler>
+            </div>
+
+            <div class="brand">
+                TURBULENCE
+            </div>
+
+            <nav class="menu">
+                <NavLink Match="NavLinkMatch.All" href="/">Home</NavLink>
+            </nav>
+
+            <div class="tools actions">
+                <AuthorizeView>
+                    <Authorized>
+                        <a href="/logout">Logout</a>
+                    </Authorized>
+                    <NotAuthorized>
+                        <a class="button ghost" href="/login">Login</a>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </header>
     </div>
 
-    <main>
-        <div class="top-row px-4">
-            <AuthorizeView>
-                <Authorized>
-                    <a href="/logout">Logout</a>
-                </Authorized>
-                <NotAuthorized>
-                    <a class="button ghost" href="/login">Login</a>
-                </NotAuthorized>
-            </AuthorizeView>
-        </div>
+    <div class="nav">
+        <ui-toggled toggle-event="toggle-nav-event">
+            <NavMenu />
+        </ui-toggled>
+    </div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+    <section class="gutter">
+        @Body
+    </section>
+
+    <div class="footer">Footer</div>
+
 </div>
 
 <div id="blazor-error-ui">

@@ -13,6 +13,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\ui\Cadence.UI\Cadence.UI.csproj" />
+	  <ProjectReference Include="..\Turbulence.Aspire\Turbulence.Aspire.ServiceDefaults\Turbulence.Aspire.ServiceDefaults.csproj" />
 	  <ProjectReference Include="..\Turbulence.Client\Turbulence.Client.csproj" />
 	</ItemGroup>
 

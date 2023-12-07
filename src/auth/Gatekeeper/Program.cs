@@ -11,9 +11,12 @@ using static OpenIddict.Abstractions.OpenIddictConstants;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddOptions<OpenIdOptions>().Bind(builder.Configuration.GetSection("OpenId"));
 
 // Add services to the container.
+builder.Services.AddServiceDiscovery();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -113,6 +116,8 @@ builder.Services.AddHostedService<ClientSeeder>();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
