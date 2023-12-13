@@ -1,9 +1,12 @@
 html, body {
+    --_font-family: var(--font-family, system-ui, sans-serif);
+    --_font-weight: var(--font-weight, 100%);
+    --_font-size: var(--font-size, 12pt);
     margin: 0;
     padding: 0;
-    font-family: system-ui, sans-serif;
-    font-weight: normal;
-    font-size: 12pt;
+    font-family: var(--_font-family);
+    font-weight: var(--_font-weight);
+    font-size: var(--_font-size);
 }
 
 body {
@@ -86,56 +89,61 @@ nav {
     gap: var(--_nav-gap);
 }
 
-    nav.vertical {
-        --_nav-gap: var(--_nav-gap-vertical, 0);
-        flex-direction: column;
-    }
+nav.vertical {
+    --_nav-gap: var(--_nav-gap-vertical, 0);
+    flex-direction: column;
+}
 
 
-    nav > * {
-        line-height: var(--_nav-item-lineheight);
-        padding-left: var(--_nav-padding);
-        padding-right: var(--_nav-padding);
-        white-space: nowrap;
-        color: inherit;
-        text-decoration: none;
-    }
+nav > * {
+    line-height: var(--_nav-item-lineheight);
+    padding-left: var(--_nav-padding);
+    padding-right: var(--_nav-padding);
+    white-space: nowrap;
+    color: inherit;
+    text-decoration: none;
+}
 
-    nav .current, nav .active {
-        background: var(--_nav-current-background);
-        border-bottom: var(--_nav-border-bottom);
-        font-weight: var(--_nav-current-fontweight);
-    }
+nav .current, nav .active {
+    background: var(--_nav-current-background);
+    border-bottom: var(--_nav-border-bottom);
+    font-weight: var(--_nav-current-fontweight);
+}
 
 section {
     --_section-spacing: var(--section-spacing, 4rem);
     --_section-gutter: var(--section-gutter, 2rem);
 }
 
-    section:not(:last-child) {
-        padding-bottom: var(--_section-spacing);
-    }
+section:not(:last-child) {
+    padding-bottom: var(--_section-spacing);
+}
 
-    section.gutter {
-        padding-left: var(--_section-gutter);
-        padding-right: var(--_section-gutter);
-    }
+section.gutter {
+    padding-left: var(--_section-gutter);
+    padding-right: var(--_section-gutter);
+}
 
 h1 {
     font-size: 2em;
 }
+
 h2 {
     font-size: 1.7em;
 }
+
 h3 {
     font-size: 1.5em;
 }
+
 h4 {
     font-size: 1.3em;
 }
+
 h5 {
     font-size: 1.2em;
 }
+
 h6 {
     font-size: 1em;
 }
@@ -163,13 +171,13 @@ h6 {
     grid-column: regular / end-regular;
 }
 
-    .content-container > *.wide {
-        grid-column: wide / end-wide;
-    }
+.content-container > *.wide {
+    grid-column: wide / end-wide;
+}
 
-    .content-container > *.full {
-        grid-column: full / end-full;
-    }
+.content-container > *.full {
+    grid-column: full / end-full;
+}
 
 form {
     --_form-invalid-color: var(--form-invalid-color, red);
@@ -178,18 +186,18 @@ form {
     --_form-field-padding: var(--form-field-padding, 0.5rem 0);
 }
 
-    form .invalid {
-        font-size: var(--_form-invalid-fontsize);
-        color: var(--_form-invalid-color);
-    }
+form .invalid {
+    font-size: var(--_form-invalid-fontsize);
+    color: var(--_form-invalid-color);
+}
 
-    form > .field, form > .form-group {
-        padding: var(--_form-field-padding);
-        display: grid;
-        grid-template-columns: auto;
-        grid-auto-rows: auto;
-        grid-auto-flow: row;
-    }
+form > .field, form > .form-group {
+    padding: var(--_form-field-padding);
+    display: grid;
+    grid-template-columns: auto;
+    grid-auto-rows: auto;
+    grid-auto-flow: row;
+}
 
 input, textarea, select, .input-text {
     --_input-border-radius: var(--input-border-radius, 0);
@@ -209,13 +217,14 @@ input, textarea, select, .input-text {
     display: flex;
     gap: 0;
 }
-    .input-group > *:not(:last-child) {
-        border-right: none;
-    }
 
-    .input-group > .input-text {
-        width: fit-content;
-    }
+.input-group > *:not(:last-child) {
+    border-right: none;
+}
+
+.input-group > .input-text {
+    width: fit-content;
+}
 
 select {
     background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20448%22%20enable-background%3D%22new%200%200%20256%20448%22%3E%3Cstyle%20type%3D%22text%2Fcss%22%3E.arrow%7Bfill%3A@{arrow}%3B%7D%3C%2Fstyle%3E%3Cpath%20class%3D%22arrow%22%20d%3D%22M255.9%20168c0-4.2-1.6-7.9-4.8-11.2-3.2-3.2-6.9-4.8-11.2-4.8H16c-4.2%200-7.9%201.6-11.2%204.8S0%20163.8%200%20168c0%204.4%201.6%208.2%204.8%2011.4l112%20112c3.1%203.1%206.8%204.6%2011.2%204.6%204.4%200%208.2-1.5%2011.4-4.6l112-112c3-3.2%204.5-7%204.5-11.4z%22%2F%3E%3C%2Fsvg%3E%0A");
@@ -253,65 +262,64 @@ button, .button {
     text-decoration: none;
     min-width: var(--_button-minsize);
     min-height: var(--_button-minsize);
-
 }
 
-    button:hover, .button:hover {
-        --_button-background-hover: var(--button-background-hover, #ddd);
-        background: var(--_button-background-hover);
-    }
+button:hover, .button:hover {
+    --_button-background-hover: var(--button-background-hover, #ddd);
+    background: var(--_button-background-hover);
+}
 
-    button.primary, .button.primary {
-        --_button-background: var(--button-background--primary, #238);
-        --_button-foreground: var(--button-foreground--primary, white);
-        --_button-border: var(--button-border--primary, 1px solid #14226f);
-        --_button-background-hover: var(--button-background-hover--primary, #3b4a9a);
-    }
+button.primary, .button.primary {
+    --_button-background: var(--button-background--primary, #238);
+    --_button-foreground: var(--button-foreground--primary, white);
+    --_button-border: var(--button-border--primary, 1px solid #14226f);
+    --_button-background-hover: var(--button-background-hover--primary, #3b4a9a);
+}
 
-    button.accent, .button.accent {
-        --_button-background: var(--button-background--accent, #431F88);
-        --_button-foreground: var(--button-foreground--accent, white);
-        --_button-border: var(--button-border--accent, 1px solid #31116f);
-        --_button-background-hover: var(--button-background-hover--accent, #593799);
-    }
+button.accent, .button.accent {
+    --_button-background: var(--button-background--accent, #431F88);
+    --_button-foreground: var(--button-foreground--accent, white);
+    --_button-border: var(--button-border--accent, 1px solid #31116f);
+    --_button-background-hover: var(--button-background-hover--accent, #593799);
+}
 
-    button.control, .button.control {
-        --_button-background: var(--button-background--control, transparent);
-        --_button-foreground: var(--button-foreground--control, black);
-        --_button-border: var(--button-border--control, none);
-        --_button-background-hover: var(--button-background-hover--control, rgba(0,0,0,0.1));
-        --_button-minsize: var(--button-minsize--control, 40px);
-        --_button-padding: var(--button-padding--control, 0.1rem);
-    }
+button.control, .button.control {
+    --_button-background: var(--button-background--control, transparent);
+    --_button-foreground: var(--button-foreground--control, black);
+    --_button-border: var(--button-border--control, none);
+    --_button-background-hover: var(--button-background-hover--control, rgba(0,0,0,0.1));
+    --_button-minsize: var(--button-minsize--control, 40px);
+    --_button-padding: var(--button-padding--control, 0.1rem);
+}
 
-    button.disabled, .button.disabled {
-        --_button-background: var(--button-background--disabled, #eee);
-        --_button-foreground: var(--button-foreground--disabled, #bbb);
-        --_button-border: var(--button-border--disabled, 1px solid #bbb);
-        --_button-background-hover: var(--button-background-hover--disabled, #eee);
-        --_button-pointer: var(--button-pointer--disabled, not-allowed);
-    }
+button.disabled, .button.disabled {
+    --_button-background: var(--button-background--disabled, #eee);
+    --_button-foreground: var(--button-foreground--disabled, #bbb);
+    --_button-border: var(--button-border--disabled, 1px solid #bbb);
+    --_button-background-hover: var(--button-background-hover--disabled, #eee);
+    --_button-pointer: var(--button-pointer--disabled, not-allowed);
+}
 
-    button.link, .button.link {
-        --_button-border: var(--button-boder--link, none);
-        --_button-background: var(--button-background--link, transparent);
-        --_button-background-hover: var(--button-background-hover--link, transparent);
-    }
-    
-    button.ghost, .button.ghost {
-        --_button-border: var(--button-boder--ghost, none);
-        --_button-background: var(--button-background--ghost, transparent);
-        --_button-background-hover: var(--button-background-hover--link, transparent);
-        --_button-foreground: var(--button-foreground--ghost, inherit);
-        --_button-padding: var(--button-padding--ghost, 0);
-    }
+button.link, .button.link {
+    --_button-border: var(--button-boder--link, none);
+    --_button-background: var(--button-background--link, transparent);
+    --_button-background-hover: var(--button-background-hover--link, transparent);
+}
 
-    button.danger, .button.danger {
-        --_button-background: var(--button-background--danger, #c3141d);
-        --_button-foreground: var(--button-foreground--danger, white);
-        --_button-border: var(--button-border--danger, 1px solid #df000b);
-        --_button-background-hover: var(--button-background-hover--danger, #df000b);
-    }
+button.ghost, .button.ghost {
+    --_button-border: var(--button-boder--ghost, none);
+    --_button-background: var(--button-background--ghost, transparent);
+    --_button-background-hover: var(--button-background-hover--link, transparent);
+    --_button-foreground: var(--button-foreground--ghost, inherit);
+    --_button-padding: var(--button-padding--ghost, 0);
+}
+
+button.danger, .button.danger {
+    --_button-background: var(--button-background--danger, #c3141d);
+    --_button-foreground: var(--button-foreground--danger, white);
+    --_button-border: var(--button-border--danger, 1px solid #df000b);
+    --_button-background-hover: var(--button-background-hover--danger, #df000b);
+}
 
 .actions {
     --_actions-gap: var(--actions-gap, 1rem);
@@ -333,10 +341,10 @@ button, .button {
     overflow: hidden;
 }
 
-    .avatar img {
-        width: 100%;
-        height: 100%;
-    }
+.avatar img {
+    width: 100%;
+    height: 100%;
+}
 
 .card {
     --_card-background: var(--card-background, rgba(255,255,255,0.3));
@@ -366,10 +374,10 @@ button, .button {
     grid-gap: var(--_panel-gap);
 }
 
-    .panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6 {
-        margin: var(--_panel-heading-margin);
-        padding: var(--_panel-heading-padding);
-    }
+.panel h1, .panel h2, .panel h3, .panel h4, .panel h5, .panel h6 {
+    margin: var(--_panel-heading-margin);
+    padding: var(--_panel-heading-padding);
+}
 
 
 .stack {
@@ -411,9 +419,9 @@ button, .button {
     align-self: center;
     user-select: none;
 }
-.accordion > .body{
-    grid-area: body;
 
+.accordion > .body {
+    grid-area: body;
 }
 
 
@@ -429,23 +437,23 @@ button, .button {
     border-bottom: 1px solid var(--_table-delineation-color);
 }
 
-    .table td, .table th {
-        padding: var(--_table-padding);
-        text-align: left;
-        border-top: 1px solid var(--_table-delineation-color);
-    }
+.table td, .table th {
+    padding: var(--_table-padding);
+    text-align: left;
+    border-top: 1px solid var(--_table-delineation-color);
+}
 
-    .table tr:nth-child(2n+1) td {
-        background-color: var(--_table-rowcolor-alt1);
-    }
+.table tr:nth-child(2n+1) td {
+    background-color: var(--_table-rowcolor-alt1);
+}
 
-    .table tr:nth-child(2n) td {
-        background-color: var(--_table-rowcolor-alt2);
-    }
+.table tr:nth-child(2n) td {
+    background-color: var(--_table-rowcolor-alt2);
+}
 
-    .table tr:nth-child(2n+1) th {
-        background-color: var(--_table-rowcolor-head);
-    }
+.table tr:nth-child(2n+1) th {
+    background-color: var(--_table-rowcolor-head);
+}
 
 .container {
     container-type: size;
@@ -487,22 +495,22 @@ button, .button {
     grid-template-areas: "header header" "nav main" "footer footer";
 }
 
-    .page > .header {
-        grid-area: header;
-    }
+.page > .header {
+    grid-area: header;
+}
 
-    .page > .main {
-        grid-area: main;
-    }
+.page > .main {
+    grid-area: main;
+}
 
-    .page > .footer {
-        grid-area: footer;
-    }
+.page > .footer {
+    grid-area: footer;
+}
 
-    .page > .nav {
-        grid-area: nav;
-        background-color: var(--_page-nav-background);
-    }
+.page > .nav {
+    grid-area: nav;
+    background-color: var(--_page-nav-background);
+}
 
 .alert {
     --_alert-background-color: var(--alert-background-color, #eee);
@@ -514,31 +522,32 @@ button, .button {
     padding: var(--_alert-padding);
     margin: var(--_alert-margin);
 }
-    .alert.success {
-        --_alert-background-color: var(--alert-background-color--success, #d4edda);
-        --_alert-border-color: var(--alert-border-color--success, #c3e6cb);
-    }
 
-    .alert.danger {
-        --_alert-background-color: var(--alert-background-color--danger, #f8d7da);
-        --_alert-border-color: var(--alert-border-color--danger, #f5c6cb);
-    }
+.alert.success {
+    --_alert-background-color: var(--alert-background-color--success, #d4edda);
+    --_alert-border-color: var(--alert-border-color--success, #c3e6cb);
+}
 
-    .alert.transparent {
-        --_alert-background-color: var(--alert-background-color--transparent, transparent);
-        --_alert-border-color: var(--alert-border-color--transparent, #ddd);
-    }
+.alert.danger {
+    --_alert-background-color: var(--alert-background-color--danger, #f8d7da);
+    --_alert-border-color: var(--alert-border-color--danger, #f5c6cb);
+}
 
-    .alert.warning {
-        --_alert-background-color: var(--alert-background-color--warning, #fff3cd);
-        --_alert-border-color: var(--alert-border-color--warning, #ffeeba);
-    }
+.alert.transparent {
+    --_alert-background-color: var(--alert-background-color--transparent, transparent);
+    --_alert-border-color: var(--alert-border-color--transparent, #ddd);
+}
+
+.alert.warning {
+    --_alert-background-color: var(--alert-background-color--warning, #fff3cd);
+    --_alert-border-color: var(--alert-border-color--warning, #ffeeba);
+}
 
 .toaster {
     --_toaster-padding: var(--toaster-padding, 1rem);
     position: absolute;
-    bottom:0;
-    right:0;
+    bottom: 0;
+    right: 0;
     padding: var(--_toaster-padding);
     min-width: 300px;
     display: grid;
@@ -548,34 +557,34 @@ button, .button {
     grid-gap: 1rem;
 }
 
-    .toaster > .toast {
-        --_toast-padding: var(--toast-padding, 0.5rem);
-        --_toast-margin: var(--toast-margin, 0.5rem);
-        --_toast-background-color: var(--toast-background-color, #eee);
-        --_toast-border-color: var(--toast-border-color, #ddd);
-        padding: var(--_toast-padding);
-        margin: var(--_toast-margin);
-        background: var(--_toast-background-color);
-        border: 1px solid var(--_toast-border-color);
-    }
+.toaster > .toast {
+    --_toast-padding: var(--toast-padding, 0.5rem);
+    --_toast-margin: var(--toast-margin, 0.5rem);
+    --_toast-background-color: var(--toast-background-color, #eee);
+    --_toast-border-color: var(--toast-border-color, #ddd);
+    padding: var(--_toast-padding);
+    margin: var(--_toast-margin);
+    background: var(--_toast-background-color);
+    border: 1px solid var(--_toast-border-color);
+}
 
-    .toaster > .toast.default {
-    }
+.toaster > .toast.default {
+}
 
-    .toaster > .toast.success {
-        --_toast-background-color: var(--toast-background-color--success, #d4edda);
-        --_toast-border-color: var(--toast-border-color--success, #c3e6cb);
-    }
+.toaster > .toast.success {
+    --_toast-background-color: var(--toast-background-color--success, #d4edda);
+    --_toast-border-color: var(--toast-border-color--success, #c3e6cb);
+}
 
-    .toaster > .toast.danger {
-        --_toast-background-color: var(--toast-background-color--danger, #f8d7da);
-        --_toast-border-color: var(--toast-border-color--danger, #f5c6cb);
-    }
+.toaster > .toast.danger {
+    --_toast-background-color: var(--toast-background-color--danger, #f8d7da);
+    --_toast-border-color: var(--toast-border-color--danger, #f5c6cb);
+}
 
-    .toaster > .toast.warning {
-        --_toast-background-color: var(--toast-background-color--warning, #fff3cd);
-        --_toast-border-color: var(--toast-border-color--warning, #ffeeba);
-    }
+.toaster > .toast.warning {
+    --_toast-background-color: var(--toast-background-color--warning, #fff3cd);
+    --_toast-border-color: var(--toast-border-color--warning, #ffeeba);
+}
 
 .text-danger {
     --_text-color--danger: var(--text-color--danger, #f33);
