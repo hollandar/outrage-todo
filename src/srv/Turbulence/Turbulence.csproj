@@ -4,18 +4,28 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>40110f92-c243-48b2-987b-42c45140ea6c</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="FastEndpoints" Version="5.20.1" />
+		<PackageReference Include="FastEndpoints.Swagger" Version="5.20.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="7.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.0.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\ui\Cadence.UI\Cadence.UI.csproj" />
 	  <ProjectReference Include="..\Turbulence.Aspire\Turbulence.Aspire.ServiceDefaults\Turbulence.Aspire.ServiceDefaults.csproj" />
 	  <ProjectReference Include="..\Turbulence.Client\Turbulence.Client.csproj" />
+	  <ProjectReference Include="..\Turbulence.Data\Turbulence.Data.csproj" />
+	  <ProjectReference Include="..\Turbulence.Shared\Turbulence.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

@@ -3,17 +3,35 @@ using Turbulence.Components;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using Turbulence.Data;
+using OpenTelemetry.Logs;
+using Microsoft.EntityFrameworkCore;
+using Turbulence.Services;
+using FastEndpoints;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.Extensions.Options;
+using Cadence.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
-
 // Add services to the container.
+
+builder.Services.AddHttpClient("Turbulence.ServerAPI")
+    .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://localhost:7002"))
+    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddScoped<MembershipService>();
+builder.Services.AddScoped<ProjectService>();
+
+builder.Services.AddDbContext<TurbulenceDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Turbulence"));
+});
 
 builder.Services.AddAuthentication(opt =>
 {
@@ -39,25 +57,32 @@ builder.Services.AddAuthentication(opt =>
 
         options.Events = new OpenIdConnectEvents
         {
-            OnAccessDenied = context =>
-            {
-                context.HandleResponse();
-                context.Response.Redirect("/");
-                return Task.CompletedTask;
-            },
+            OnAccessDenied = context => context.HttpContext.RequestServices.GetRequiredService<MembershipService>().AccessDenied(context), 
+            OnTokenValidated = context => context.HttpContext.RequestServices.GetRequiredService<MembershipService>().EstablishMember(context)
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Authenticated", policy => {
+        policy.RequireAuthenticatedUser();
+    });
+});
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddFastEndpoints();
+builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<ToasterService>();
+
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()));
 var app = builder.Build();
-
-app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
@@ -66,14 +91,18 @@ else
     app.UseHsts();
 }
 
+app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.MapSwagger().RequireAuthorization();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Counter).Assembly);
 
+app.MapFastEndpoints();
 app.Run();

@@ -1,7 +1,8 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
+    font-family: system-ui, sans-serif;
+    font-weight: normal;
     font-size: 12pt;
 }
 
@@ -139,6 +140,11 @@ h6 {
     font-size: 1em;
 }
 
+.bare-heading {
+    padding: 0;
+    margin: 0;
+}
+
 .content-container {
     --_content-container-relief: var(--content-container-relief, 100px);
     --_content-container-relief-sff: var(--content-container-relief-sff, 5%);
@@ -235,6 +241,7 @@ button, .button {
     --_button-padding: var(--button-padding, 0.5rem 1rem);
     --_button-margin: var(--button-margin, 0);
     --_button-pointer: var(--button-pointer, pointer);
+    --_button-minsize: var(--button-minsize, unset);
     border: var(--_button-border);
     background: var(--_button-background);
     color: var(--_button-foreground);
@@ -244,6 +251,9 @@ button, .button {
     cursor: var(--_button-pointer);
     box-sizing: border-box;
     text-decoration: none;
+    min-width: var(--_button-minsize);
+    min-height: var(--_button-minsize);
+
 }
 
     button:hover, .button:hover {
@@ -259,10 +269,19 @@ button, .button {
     }
 
     button.accent, .button.accent {
-        --_button-background: var(--button-background--primary, #431F88);
-        --_button-foreground: var(--button-foreground--primary, white);
-        --_button-border: var(--button-border--primary, 1px solid #31116f);
-        --_button-background-hover: var(--button-background-hover--primary, #593799);
+        --_button-background: var(--button-background--accent, #431F88);
+        --_button-foreground: var(--button-foreground--accent, white);
+        --_button-border: var(--button-border--accent, 1px solid #31116f);
+        --_button-background-hover: var(--button-background-hover--accent, #593799);
+    }
+
+    button.control, .button.control {
+        --_button-background: var(--button-background--control, transparent);
+        --_button-foreground: var(--button-foreground--control, black);
+        --_button-border: var(--button-border--control, none);
+        --_button-background-hover: var(--button-background-hover--control, rgba(0,0,0,0.1));
+        --_button-minsize: var(--button-minsize--control, 40px);
+        --_button-padding: var(--button-padding--control, 0.1rem);
     }
 
     button.disabled, .button.disabled {
@@ -361,6 +380,43 @@ button, .button {
     justify-content: space-between;
     gap: var(--_stack-gap);
 }
+
+.accordion {
+    --_accordion-background: var(--accordion-background, rgba(255,255,255,0.3));
+    --_accordion-border: var(--accordion-border, 1px solid rgba(0,0,0,0.3));
+    --_accordion-header-gap: var(--accordion-header-gap, 0 1rem);
+    --_accordion-header: var(--accordion-header, 1fr 60px);
+    --_accordion-padding: var(--accordion-padding, 1rem);
+    background: var(--_accordion-background);
+    border: var(--_accordion-border);
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-template-columns: var(--_accordion-header);
+    grid-template-areas: "header toggle" "body body";
+    gap: var(--_accordion-header-gap);
+    padding: var(--_accordion-padding);
+}
+
+.accordion > .header {
+    grid-area: header;
+}
+
+.accordion > .content > * {
+    padding-top: 1rem;
+}
+
+.accordion > .toggle {
+    grid-area: toggle;
+    justify-self: center;
+    align-self: center;
+    user-select: none;
+}
+.accordion > .body{
+    grid-area: body;
+
+}
+
+
 
 .table {
     --_table-padding: var(--table-padding, 0.5rem);
@@ -524,4 +580,9 @@ button, .button {
 .text-danger {
     --_text-color--danger: var(--text-color--danger, #f33);
     color: var(--_text-color--danger);
+}
+
+.text-success {
+    --_text-color--success: var(--text-color--danger, #3f3);
+    color: var(--_text-color--success);
 }

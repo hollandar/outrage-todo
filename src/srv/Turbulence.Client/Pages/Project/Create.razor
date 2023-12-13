@@ -1,0 +1,103 @@
+﻿@page "/project/create"
+@using Turbulence.Client.Components.Validation
+@using Turbulence.Shared
+@inject ToasterService Toaster
+@inject IHttpClientFactory ClientFactory
+
+@rendermode InteractiveAuto
+
+@inject NavigationManager Nav
+
+<h1>Create Project</h1>
+
+<EditForm Model="createRequest" OnValidSubmit="Submit">
+    <FluentValidator TModelType="CreateProjectRequest" TValidator="CreateProjectRequestValidator" />
+    <div class="field">
+        <label for="project-name">Project</label>
+        <InputText id="project-name" @bind-Value="createRequest.Name" />
+        <ValidationMessage For="() => createRequest.Name" />
+    </div>
+
+    <div class="field">
+        <label for="project-slug">Slug</label>
+        <InputText id="project-slug" Value="@createRequest.Slug" ValueExpression="() => this.createRequest.Slug" @oninput="SlugChanged" />
+        @if (!String.IsNullOrWhiteSpace(this.createRequest.Slug))
+        {
+            if (!slugIsTaken)
+            {
+                <div class="text-success">Slug is available</div>
+            }
+            else
+            {
+                <div class="text-danger">Slug is taken</div>
+            }
+        }
+        <ValidationMessage For="() => createRequest.Slug" />
+    </div>
+
+    <div class="actions">
+        <button type="submit" class="primary">Create</button>
+        <button type="button" @onclick="Cancel">Cancel</button>
+    </div>
+</EditForm>
+
+@code {
+    CreateProjectRequest createRequest = new();
+    bool slugIsTaken = false;
+    bool queued = false;
+    bool loading = false;
+
+    async Task SlugChanged(ChangeEventArgs args)
+    {
+        this.createRequest.Slug = args.Value.ToString();
+        if (loading)
+        {
+            queued = true;
+            return;
+        }
+
+        do
+        {
+            loading = true;
+            queued = false;
+            var response = await ClientFactory.CreateClient("Turbulence.ServerAPI").GetAsync($"api/project/slug-used/{this.createRequest.Slug}");
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<ValueResult<bool>>();
+                slugIsTaken = result!.Value;
+            }
+            else
+            {
+                slugIsTaken = true;
+            }
+            loading = false;
+        } while (queued);
+    }
+
+    async Task Submit()
+    {
+        var response = await ClientFactory.CreateClient("Turbulence.ServerAPI").PostAsJsonAsync("api/project/create/", createRequest);
+        if (response.IsSuccessStatusCode)
+        {
+            var result = await response.Content.ReadFromJsonAsync<Result>();
+            if (result.Success)
+            {
+                Nav.NavigateTo("/");
+            }
+            else
+            {
+                await Toaster.Publish(result!.Error, ToastType.Warning);
+            }
+        }
+        else
+        {
+            await Toaster.Publish("An error occurred while creating the project", ToastType.Danger);
+        }
+    }
+
+    Task Cancel()
+    {
+        Nav.NavigateTo("/");
+        return Task.CompletedTask;
+    }
+}
