@@ -1,0 +1,28 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+
+# Install npm and yarn
+WORKDIR /
+RUN apt-get update
+RUN apt-get install -y npm
+RUN npm install -g -s --no-progress yarn
+
+# Copy everything
+COPY ./src/ui/Cadence.UI /App/src/ui/Cadence.UI
+COPY ./src/auth/Gatekeeper /App/src/auth/Gatekeeper
+
+WORKDIR /App/src/ui/Cadence.UI
+RUN yarn
+
+WORKDIR /App/src/auth/Gatekeeper
+
+# Restore as distinct layers
+RUN dotnet restore
+
+# Build and publish a release
+RUN dotnet publish -c Release -o /App/out
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /App
+COPY --from=build-env /App/out .
+ENTRYPOINT ["dotnet", "Gatekeeper.dll"]

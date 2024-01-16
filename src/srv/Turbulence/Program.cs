@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Turbulence.Data;
-using OpenTelemetry.Logs;
 using Microsoft.EntityFrameworkCore;
 using Turbulence.Services;
 using FastEndpoints;
@@ -41,6 +40,7 @@ builder.Services.AddAuthentication(opt =>
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
     {
+        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.Authority = "https://localhost:7038/";
         options.ClientId = "test_client";
         options.ClientSecret = "test_secret";
@@ -50,6 +50,7 @@ builder.Services.AddAuthentication(opt =>
         options.UseTokenLifetime = false;
         options.Scope.Add("test_scope");
         options.Scope.Add("roles");
+        options.CallbackPath = "/signin-oidc";
         options.TokenValidationParameters = new TokenValidationParameters
         {
             NameClaimType = "name",
@@ -96,6 +97,9 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapSwagger().RequireAuthorization();
 

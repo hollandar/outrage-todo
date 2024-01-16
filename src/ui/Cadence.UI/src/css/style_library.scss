@@ -595,3 +595,22 @@ button.danger, .button.danger {
     --_text-color--success: var(--text-color--danger, #3f3);
     color: var(--_text-color--success);
 }
+
+.in-your-face {
+    --_in-your-face--padding: var(--in-your-face--padding, 2rem);
+    --_in-your-face--border: var(--in-your-face--padding, 1px solid black);
+    --_in-your-face--fontsize: var(--in-your-face--fontsize, 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+}
+
+.in-your-face > .body {
+    border: var(--_in-your-face--border);
+    padding: var(--_in-your-face--padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: var(--_in-your-face--fontsize);
+}

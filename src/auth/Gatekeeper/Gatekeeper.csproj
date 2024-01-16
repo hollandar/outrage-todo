@@ -12,21 +12,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.0" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.0" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
-		<PackageReference Include="OpenIddict.AspNetCore" Version="4.10.0" />
-		<PackageReference Include="OpenIddict.EntityFrameworkCore" Version="4.10.0" />
-		<PackageReference Include="OpenIddict.Server" Version="4.10.0" />
-		<PackageReference Include="OpenIddict.Quartz" Version="4.10.0" />
+		<PackageReference Include="OpenIddict.AspNetCore" Version="5.0.1" />
+		<PackageReference Include="OpenIddict.EntityFrameworkCore" Version="5.0.1" />
+		<PackageReference Include="OpenIddict.Server" Version="5.0.1" />
+		<PackageReference Include="OpenIddict.Quartz" Version="5.0.1" />
 		<PackageReference Include="Quartz.Extensions.Hosting" Version="3.8.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\srv\Turbulence.Aspire\Turbulence.Aspire.ServiceDefaults\Turbulence.Aspire.ServiceDefaults.csproj" />
 		<ProjectReference Include="..\..\ui\Cadence.UI\Cadence.UI.csproj" />
 	</ItemGroup>
 
