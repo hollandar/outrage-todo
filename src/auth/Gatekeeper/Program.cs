@@ -58,7 +58,9 @@ builder.Services.AddOpenIddict()
            .AddServer(options =>
            {
                // Enable the authorization, logout, token and userinfo endpoints.
-               options.SetAuthorizationEndpointUris("connect/authorize")
+               options.SetDeviceEndpointUris("connect/device")
+                      .SetVerificationEndpointUris("connect/verify")
+                      .SetAuthorizationEndpointUris("connect/authorize")
                       .SetLogoutEndpointUris("connect/logout")
                       .SetTokenEndpointUris("connect/token")
                       .SetUserinfoEndpointUris("connect/userinfo");
@@ -68,8 +70,10 @@ builder.Services.AddOpenIddict()
 
                // Note: the sample uses the code and refresh token flows but you can enable
                // the other flows if you need to support implicit, password or client credentials.
-               options.AllowAuthorizationCodeFlow()
-                      .AllowRefreshTokenFlow();
+               options
+                    .AllowDeviceCodeFlow()
+                    .AllowAuthorizationCodeFlow()
+                    .AllowRefreshTokenFlow();
 
                // Register the signing and encryption credentials.
                options.AddDevelopmentEncryptionCertificate()
@@ -80,7 +84,9 @@ builder.Services.AddOpenIddict()
                       .EnableAuthorizationEndpointPassthrough()
                       .EnableLogoutEndpointPassthrough()
                       .EnableStatusCodePagesIntegration()
-                      .EnableTokenEndpointPassthrough();
+                      .EnableTokenEndpointPassthrough()
+                      .EnableVerificationEndpointPassthrough()
+                      .EnableUserinfoEndpointPassthrough();
            })
 
            // Register the OpenIddict validation components.

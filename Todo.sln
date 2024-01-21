@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Turbulence.Data", "src\srv\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Turbulence.Shared", "src\srv\Turbulence.Shared\Turbulence.Shared.csproj", "{043911D5-4EEB-4C78-AA2C-CF9CD299C735}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matty.Client", "src\auth\Auth.Client\Matty.Client\Matty.Client.csproj", "{862B1C88-61A9-4483-BB93-E3E2C00CA44B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{043911D5-4EEB-4C78-AA2C-CF9CD299C735}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{043911D5-4EEB-4C78-AA2C-CF9CD299C735}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{043911D5-4EEB-4C78-AA2C-CF9CD299C735}.Release|Any CPU.Build.0 = Release|Any CPU
+		{862B1C88-61A9-4483-BB93-E3E2C00CA44B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862B1C88-61A9-4483-BB93-E3E2C00CA44B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862B1C88-61A9-4483-BB93-E3E2C00CA44B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862B1C88-61A9-4483-BB93-E3E2C00CA44B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +112,7 @@ Global
 		{51AD7E55-AB10-4FAC-A98A-E8E9197B5501} = {71AC1A3C-FB61-436F-AEEE-0263E35D065E}
 		{95D9F801-7ED7-4F18-9072-512D12E9B4EE} = {71AC1A3C-FB61-436F-AEEE-0263E35D065E}
 		{043911D5-4EEB-4C78-AA2C-CF9CD299C735} = {71AC1A3C-FB61-436F-AEEE-0263E35D065E}
+		{862B1C88-61A9-4483-BB93-E3E2C00CA44B} = {21267BC6-E9CB-442C-BBE0-83C9DE9CA049}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {18D8E6B7-731F-4FFB-B07F-F84D349E0ACB}
